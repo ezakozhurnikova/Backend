@@ -22,3 +22,47 @@ Content-Type: application/json
 ### Получение всех пользователей
 
 GET localhost:8080/api/users
+
+### Добавление события Sting
+
+POST http://localhost:8080/api/events
+Content-Type: application/json
+
+{
+
+  "name": "Sting Concert",
+
+  "address": "Berlin"
+}
+
+### Получение всех событий
+
+GET localhost:8080/api/events
+
+### Удаление пользователя
+
+DELETE localhost:8080/api/users/2
+
+### Обновление Марселя
+
+PUT http://localhost:8080/api/users/1
+Content-Type: application/json
+
+{
+  "newRole" : "MANAGER",
+  "newState" : "BANNED"
+}
+
+### Обновление Алишера
+
+PUT http://localhost:8080/api/users/2
+Content-Type: application/json
+
+{
+  "newRole" : "ADMIN",
+  "newState" : "BANNED"
+}
+
+### Получаем Марселя
+
+GET http://localhost:8080/api/users/1
