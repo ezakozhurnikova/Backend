@@ -71,7 +71,7 @@ price - число
 Ответ:
 id - число
 name - текстовое поле
-address - текстовое поле
+location - текстовое поле
 price - число
 
 
@@ -87,7 +87,7 @@ GET /events
 {
 "events": [
 // список событий, с полями
-// id, name, address, state
+// id, name, location, state
 ],
 "count" : // сколько данных вернули
 }
@@ -139,7 +139,7 @@ DELETE /events/{events-id}
 
 PUT /events/{event-id}
 - name (строка)
-- address (строка)
+- location (строка)
 - state (строка)
 
 Ответ:
