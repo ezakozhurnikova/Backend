@@ -1,13 +1,20 @@
 package de.ait.timepad.controllers;
 
 import de.ait.timepad.controllers.api.EventsApi;
-import de.ait.timepad.dto.NewEventDto;
-import de.ait.timepad.dto.UpdateEventDto;
 import de.ait.timepad.dto.EventDto;
 import de.ait.timepad.dto.EventsDto;
+import de.ait.timepad.dto.NewEventDto;
+import de.ait.timepad.dto.UpdateEventDto;
+import de.ait.timepad.models.Event;
 import de.ait.timepad.services.EventsService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 
 @RequiredArgsConstructor
@@ -17,26 +24,26 @@ public class EventsController implements EventsApi {
     private final EventsService eventsService;
     @Override
     public EventDto addEvent(NewEventDto newEvent) {
-        return EventsService.addEvent(newEvent);
+        return eventsService.addEvent(newEvent);
     }
 
     @Override
     public EventsDto getAllEvents() {
-        return EventsService.getAllEvents();
+        return eventsService.getAllEvents();
     }
 
     @Override
     public EventDto deleteEvent(Long EventId) {
-        return EventsService.deleteEvent(EventId);
+        return eventsService.deleteEvent(EventId);
     }
 
     @Override
     public EventDto updateEvent(Long EventId, UpdateEventDto updateEvent) {
-        return EventsService.updateEvent(EventId, updateEvent);
+        return eventsService.updateEvent(EventId, updateEvent);
     }
 
     @Override
     public EventDto getEvent(Long EventId) {
-        return EventsService.getEvent(EventId);
+        return eventsService.getEvent(EventId);
     }
 }

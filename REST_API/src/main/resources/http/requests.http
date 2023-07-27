@@ -23,16 +23,26 @@ Content-Type: application/json
 
 GET localhost:8080/api/users
 
+### Добавление события Pink
+
+POST http://localhost:8080/api/events
+Content-Type: application/json
+
+{
+  "name": "Pink",
+  "location": "Berlin",
+  "price": 300
+}
+
 ### Добавление события Sting
 
 POST http://localhost:8080/api/events
 Content-Type: application/json
 
 {
-
-  "name": "Sting Concert",
-
-  "address": "Berlin"
+  "name": "Sting",
+  "location": "Berlin",
+  "price": 260
 }
 
 ### Получение всех событий
@@ -66,3 +76,22 @@ Content-Type: application/json
 ### Получаем Марселя
 
 GET http://localhost:8080/api/users/1
+
+### Удаление события
+
+DELETE localhost:8080/api/events/1
+
+### Обновление события
+
+PUT http://localhost:8080/api/events/1
+Content-Type: application/json
+
+{
+  "newName" : "Maroon5",
+  "newLocation" : "Zurich",
+  "newState" : "IN_PROGRESS"
+}
+
+### Получаем одно событие
+
+GET http://localhost:8080/api/events/1

@@ -5,28 +5,25 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Event {
 
-       public enum Status {
-        NOT_CONFIRMED,
-        CONFIRMED;
+    public enum State {
 
+        CREATED,
+        IN_PROGRESS,
+        COMPLETED,
+        DELETED
     }
 
     private Long id;
-
     private String name;
-    private String address;
+    private String location;
+    private Integer price;
 
-    private Status status;
-
-    private List<Event> events;
+    private State state;
 }
 
