@@ -1,8 +1,10 @@
 package de.ait.timepad.repositories;
 
 import de.ait.timepad.models.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 7/21/2023
@@ -10,10 +12,5 @@ import java.util.List;
  *
  * @author Marsel Sidikov (AIT TR)
  */
-public interface UsersRepository {
-    void save(User user);
-
-    List<User> findAll();
-
-    void clear();
+public interface UsersRepository extends JpaRepository<User, Long> {
 }

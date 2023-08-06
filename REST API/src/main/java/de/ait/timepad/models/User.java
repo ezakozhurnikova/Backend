@@ -1,10 +1,8 @@
 package de.ait.timepad.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -17,11 +15,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@EqualsAndHashCode(exclude = "articles")
+@Entity
+@Table(name = "account")
 public class User {
 
     public enum Role {
         ADMIN,
-        USER
+        USER,
+        MANAGER
     }
 
     public enum State {
@@ -31,13 +33,19 @@ public class User {
         DELETED
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String email;
     private String password;
 
+    @Enumerated(value = EnumType.STRING)
     private Role role;
+
+    @Enumerated(value = EnumType.STRING)
     private State state;
 
-    private List<Event> events;
+    @OneToMany(mappedBy = "about")
+    private List<Article> articles;
 }

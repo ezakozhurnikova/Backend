@@ -1,0 +1,37 @@
+### Добавление задачи Марселю
+
+POST localhost:8080/api/tasks
+Content-Type: application/json
+
+{
+  "description" : "Задача Марселю,обучить Backend",
+  "title" : "Задача Марселю",
+  "executorUserId": 1,
+  "startDate": "2022-06-08",
+  "finishDate": "2022-06-08"
+
+}
+### Добавление задачи Алишеру
+
+POST localhost:8080/api/tasks
+Content-Type: application/json
+
+{
+  "description" : "Задача Марселю,обучить Spring",
+  "title" : "Задача Марселю",
+  "executorUserId": 2,
+  "startDate": "2022-06-12",
+  "finishDate": "2022-06-19"
+}
+
+### Получение всех задач Марселя
+
+GET localhost:8080/api/users/1/tasks
+
+### Получение всех статей об Алишере
+
+GET localhost:8080/api/users/2/tasks
+
+### Получение всех статей по дате
+
+GET localhost:8080/api/tasks?year=2021&month

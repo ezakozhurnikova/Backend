@@ -1,8 +1,9 @@
 package de.ait.timepad.services.impl;
 
-import de.ait.timepad.dto.NewUserDto;
-import de.ait.timepad.dto.UserDto;
-import de.ait.timepad.dto.UsersDto;
+import de.ait.timepad.dto.*;
+import de.ait.timepad.exceptions.ForbiddenOperationException;
+import de.ait.timepad.exceptions.NotFoundException;
+import de.ait.timepad.models.Article;
 import de.ait.timepad.models.User;
 import de.ait.timepad.repositories.UsersRepository;
 import de.ait.timepad.services.UsersService;
@@ -11,9 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static de.ait.timepad.dto.UserDto.from;
+import static de.ait.timepad.dto.ArticleDto.from;
 
 /**
  * 7/21/2023
@@ -42,18 +43,56 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public UsersDto getAllUsers() {
-//        List<User> users = usersRepository.findAll();
-//
-//        List<UserDto> dtos = new ArrayList<>();
-//
-//        for (User user : users) {
-//            UserDto userDto = from(user);
-//            dtos.add(userDto);
-//        }
         List<User> users = usersRepository.findAll();
         return UsersDto.builder()
                 .users(from(users))
                 .count(users.size())
                 .build();
+    }
+
+    @Override
+    public UserDto deleteUser(Long userId) {
+        User user = getUserOrThrow(userId);
+
+        usersRepository.delete(user);
+
+        return from(user);
+    }
+
+    @Override
+    public UserDto updateUser(Long userId, UpdateUserDto updateUser) {
+
+        User user = getUserOrThrow(userId);
+
+        if (updateUser.getNewRole().equals("ADMIN")) {
+            throw new ForbiddenOperationException("Cannot make an administrator");
+        }
+
+        user.setState(User.State.valueOf(updateUser.getNewState()));
+        user.setRole(User.Role.valueOf(updateUser.getNewRole()));
+
+        usersRepository.save(user);
+
+        return from(user);
+    }
+
+    @Override
+    public UserDto getUser(Long userId) {
+        return from(getUserOrThrow(userId));
+    }
+
+    @Override
+    public ArticlesDto getArticlesOfUser(Long userId) {
+        User user = getUserOrThrow(userId);
+
+        return ArticlesDto.builder()
+                .articles(from(user.getArticles()))
+                .count(user.getArticles().size())
+                .build();
+    }
+
+    private User getUserOrThrow(Long userId) {
+        return usersRepository.findById(userId).orElseThrow(
+                () -> new NotFoundException("User with id <" + userId + "> not found"));
     }
 }
